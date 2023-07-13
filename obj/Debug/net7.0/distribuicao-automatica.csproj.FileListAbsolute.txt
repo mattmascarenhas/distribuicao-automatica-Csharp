@@ -1,0 +1,17 @@
+D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\distribuicao-automatica.exe
+D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\distribuicao-automatica.deps.json
+D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\distribuicao-automatica.runtimeconfig.json
+D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\distribuicao-automatica.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\distribuicao-automatica.pdb
+D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\distribuicao-automatica.csproj.AssemblyReference.cache
+D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\distribuicao-automatica.GeneratedMSBuildEditorConfig.editorconfig
+D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\distribuicao-automatica.AssemblyInfoInputs.cache
+D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\distribuicao-automatica.AssemblyInfo.cs
+D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\distribuicao-automatica.csproj.CoreCompileInputs.cache
+D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\distribuicao-automatica.dll
+D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\refint\distribuicao-automatica.dll
+D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\distribuicao-automatica.pdb
+D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\distribuicao-automatica.genruntimeconfig.cache
+D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\ref\distribuicao-automatica.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\Newtonsoft.Json.dll
+D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\distribuicao-automatica.csproj.CopyComplete

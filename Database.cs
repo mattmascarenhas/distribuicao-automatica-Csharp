@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace distribuicao_automatica {
+    public class Database {
+        public static string apiUrl = "https://api.huggy.app/v3";
+        public static string token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjRhYTU0YzRiMWUwN2I3MzNlOWI4NzYyMjkzZWU2Yzg1NDExZDVkM2NjMWViNWFiYjdhMzA5YWNkOWVkOTI2YTg5M2Q5NTUxMmFjYjQ2OTdiIn0.eyJhdWQiOiJBUFAtMTZhOTUyZTItYTU5Ni00ZjFmLTgxYWUtZTI5YzcyODM3NTA0IiwianRpIjoiNGFhNTRjNGIxZTA3YjczM2U5Yjg3NjIyOTNlZTZjODU0MTFkNWQzY2MxZWI1YWJiN2EzMDlhY2Q5ZWQ5MjZhODkzZDk1NTEyYWNiNDY5N2IiLCJpYXQiOjE2ODkwMTI0NzIsIm5iZiI6MTY4OTAxMjQ3MiwiZXhwIjoxNzA0OTEwMDcyLCJzdWIiOiIxMjgzOTgiLCJzY29wZXMiOlsiaW5zdGFsbF9hcHAiLCJyZWFkX2FnZW50X3Byb2ZpbGUiXX0.THi2naFH0Ayb922eC02TdOQIYSewJSzGk3n2s8rGEmg6VHbhhSTlAQ_h2O2xh6y4dLkMtbcGIMAA68HuHoSM3LvvnJOgB2jN_QFXhYDyp5NFb6A6T4zajXywPMpJ17EQiihuucfhM_gzfkw09PmF3tiQ2zeP_BY_ITokzHqfh_I";
+    }
+}
