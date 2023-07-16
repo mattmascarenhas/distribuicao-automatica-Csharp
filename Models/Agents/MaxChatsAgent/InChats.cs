@@ -17,7 +17,7 @@ namespace distribuicao_automatica.Models.Agents.MaxChatsAgents {
         public string agentID { get; private set; }
 
         [JsonProperty("inChat")]
-        public string inChat { get; private set; }
+        public string? inChat { get; private set; }
 
     }
 }

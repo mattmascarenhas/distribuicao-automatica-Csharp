@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using distribuicao_automatica.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,22 +9,25 @@ using System.Threading.Tasks;
 namespace distribuicao_automatica.Models {
     public class Chat {
         public Chat() {
-            
+
         }
 
         [JsonProperty("id")]
         public int id { get; private set; }
 
         [JsonProperty("departmentId")] //especialização
-        public int? departmentId { get; private set; }
+        public EDepartmentType? departmentId { get ; private set; }
+
+        [JsonProperty("agentId")] //agente responsavel
+        public int? agentId { get; private set; }
 
         [JsonProperty("situation")] //disponibilidade
         public string situation { get; private set; }
 
-        [JsonProperty("createdAt")]
+        [JsonProperty("createdAt")] //prioridade
         public DateTime createdAt { get; private set; }
 
-        [JsonProperty("updatedAt")] //prioridade
+        [JsonProperty("updatedAt")] 
         public DateTime updatedAt { get; private set; }
 
 
