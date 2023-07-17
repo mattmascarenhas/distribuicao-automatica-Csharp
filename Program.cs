@@ -11,6 +11,15 @@ class Program {
     private static AgentMaxChatsResponse _agentsMaxChats;
     private static List<OrderedChatAgent> _idChats = new List<OrderedChatAgent>();
     static async Task Main(string[] args) {
+        // Configurar um timer para executar as funções a cada 5 minutos (300 segundos)
+        Timer timer = new Timer(async _ => await ExecuteFunctions(), null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
+
+        // Aguardar indefinidamente para manter a aplicação em execução
+        await Task.Delay(Timeout.Infinite);
+
+    }
+
+    static async Task ExecuteFunctions() {
         //buscando os chats na API
         _chats = await JsonDeserialize.DeserializeChats();
         //buscando o maxChats e inChats na API
@@ -24,12 +33,25 @@ class Program {
         //ordenando o agentes, para dar prioridade a quem tem menos chats ativos
         _agents = Functions.SortAgentsByInChats(_agents);
 
+        //exibe informações sobre chats e agentes
+        Functions.ShowInfoChatAndAgents(_chats, _agents);
 
         //direciona os chats para os atendentes
         Functions.DirectToAgents(_chats, _agents, _idChats);
 
-        //exibe informações sobre chats e agentes
-        //Functions.ShowInfoChatAndAgents(_chats, _agents);
+        Console.WriteLine("------------------------------------");
 
+        //exibe a lista final já distribuida, o ID do chat e o ID do agente
+        Functions.ShowMaxChatsAndInChats(_idChats);
+
+        Console.WriteLine("------------------------------------");
+
+        await JsonDeserialize.UpdateChatAgents(_idChats);
+
+        //limpar os dados para a proxima execução
+        _idChats.Clear();
+        _chats.Clear();
+        _agents.Clear();
+        _agentsMaxChats = null;
     }
 }

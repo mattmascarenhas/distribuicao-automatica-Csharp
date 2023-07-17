@@ -34,7 +34,7 @@ namespace distribuicao_automatica.Models {
         [JsonProperty("inChats")]
         public int inChats { get; private set; }
 
-        public int availableChats { get; private set; }
+        public int availableChats { get; set; }
 
         public EDepartmentType department {get; private set;}
 
