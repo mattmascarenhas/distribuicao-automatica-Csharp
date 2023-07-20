@@ -11,7 +11,7 @@ class Program {
     private static AgentMaxChatsResponse _agentsMaxChats;
     private static List<OrderedChatAgent> _idChats = new List<OrderedChatAgent>();
     static async Task Main(string[] args) {
-        // Configurar um timer para executar as funções a cada 5 minutos (300 segundos)
+        // Configurar um timer para executar as funções a cada minuto
         Timer timer = new Timer(async _ => await ExecuteFunctions(), null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
 
         // Aguardar indefinidamente para manter a aplicação em execução
@@ -26,32 +26,34 @@ class Program {
         _agentsMaxChats = await JsonDeserialize.DeserializeAgentResultMaxChats(344616);
         //buscando os agentes na API
         _agents = await JsonDeserialize.DeserializeAgentList();
-        //remove os chats que ja estão em atendimento
-        Functions.RemoveChatsWithAgentId(_chats);
-        //ordenando os chats por ordem de criação
-        _chats = await Functions.orderByCreatedAt(_chats);
-        //ordenando o agentes, para dar prioridade a quem tem menos chats ativos
-        _agents = Functions.SortAgentsByInChats(_agents);
+        if (_chats != null && _agents != null && _idChats != null) {
+            //remove os chats que ja estão em atendimento
+            Functions.RemoveChatsWithAgentId(_chats);
+            //ordenando os chats por ordem de criação
+            _chats = await Functions.orderByCreatedAt(_chats);
+            //ordenando o agentes, para dar prioridade a quem tem menos chats ativos
+            _agents = Functions.SortAgentsByInChats(_agents);
+            //exibe informações sobre chats e agentes
+            Functions.ShowInfoChatAndAgents(_chats, _agents);
+            //direciona os chats para os atendentes
+            Functions.DirectToAgents(_chats, _agents, _idChats);
+            Console.WriteLine("------------------------------------");
 
-        //exibe informações sobre chats e agentes
-        Functions.ShowInfoChatAndAgents(_chats, _agents);
+            //exibe a lista final já distribuida, o ID do chat e o ID do agente
+            Functions.ShowMaxChatsAndInChats(_idChats);
 
-        //direciona os chats para os atendentes
-        Functions.DirectToAgents(_chats, _agents, _idChats);
+            Console.WriteLine("------------------------------------");
+            //Retorna os dados já distribuido pra API
+            //await JsonDeserialize.DeserializeDepartment(344616, 56790);
 
-        Console.WriteLine("------------------------------------");
-
-        //exibe a lista final já distribuida, o ID do chat e o ID do agente
-        Functions.ShowMaxChatsAndInChats(_idChats);
-
-        Console.WriteLine("------------------------------------");
-
-        await JsonDeserialize.UpdateChatAgents(_idChats);
-
-        //limpar os dados para a proxima execução
-        _idChats.Clear();
-        _chats.Clear();
-        _agents.Clear();
-        _agentsMaxChats = null;
+            await JsonDeserialize.UpdateChatAgents(_idChats);
+            //limpar os dados para a proxima execução
+            _idChats.Clear();
+            _chats.Clear();
+            _agents.Clear();
+            _agentsMaxChats = null;
+        } else {
+            Console.WriteLine($"{DateTime.Now} As listas de chats, agentes ou idChats não foram inicializadas corretamente.");
+        }
     }
 }

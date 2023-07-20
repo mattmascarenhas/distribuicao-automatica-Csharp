@@ -18,12 +18,12 @@ namespace distribuicao_automatica.Utils {
                     // Filtra os agentes que estão disponíveis e possuem mais de zero AvailableChats
                     var compatibleAgents = _agents.Where(agent =>
                         agent.statusType == EStatusType.Disponível &&
-                        agent.availableChats > 0
+                        agent.availableChats > 0 && chat.departmentId == agent.department
                     ).ToList();
 
                     if (compatibleAgents.Count > 0) {
                         // Ordena os agentes com base no número de AvailableChats em ordem decrescente
-                        compatibleAgents = SortAgentsByInChats(compatibleAgents).ToList();
+                        compatibleAgents = SortAgentsByInCountOrder(compatibleAgents).ToList();
 
                         // Seleciona o agente com mais chats disponíveis
                         Agent selectedAgent = compatibleAgents[0];
@@ -34,6 +34,7 @@ namespace distribuicao_automatica.Utils {
                         // Atualiza o número de chats em andamento do agente selecionado
                         AssignAgentToChat(selectedAgent);
                         selectedAgent.availableChats--;
+                        selectedAgent.countOrder++;
 
                         // Atualiza a lista _agents globalmente
                         int agentIndex = _agents.FindIndex(agent => agent.id == selectedAgent.id);
@@ -41,28 +42,10 @@ namespace distribuicao_automatica.Utils {
                     } else {
                         // Manter o chat na fila quando não houver agente do departamento disponivel
                         Console.WriteLine($"[{DateTime.Now}] Chat ID: {chat.id} - Nenhum atendente do departamento encontrado, chat seguirá na fila");
-                        //_idChats.Add(new OrderedChatAgent { chatId = chat.id, agentId = -1 }); // Usando -1 para representar que nenhum agente foi atribuído
-                        //                                                                       // Faça o que for necessário com o chat
                     }
                 } else {
-                    // Encontre um agente compatível com base no departmentId
-                    Agent compatibleAgent = _agents.FirstOrDefault(agent => agent.department == (EDepartmentType) chat.departmentId &&
-                                                                             agent.statusType == EStatusType.Disponível &&
-                                                                             agent.availableChats > 0);
-
-                    if (compatibleAgent != null) {
-                        // Agente compatível encontrado
-                        Console.WriteLine($"[{DateTime.Now}] O chat {chat.id} já está em atendimento");
-                       // _idChats.Add(new OrderedChatAgent { chatId = chat.id, agentId = compatibleAgent.id });
-
-                        // Atualiza o número de chats em andamento do agente selecionado
-                        AssignAgentToChat(compatibleAgent);
-                    } else {
-                        // Manter o chat na fila quando não houver agente do departamento disponivel
-                        Console.WriteLine($"[{DateTime.Now}] Chat ID: {chat.id} - Nenhum atendente do departamento encontrado, chat seguirá na fila");
-                        //_idChats.Add(new OrderedChatAgent { chatId = chat.id, agentId = -1 }); // Usando -1 para representar que nenhum agente foi atribuído
-                        //                                                                       // Faça o que for necessário com o chat
-                    }
+                    //chat já tem um agentId selecionado, ou seja já está em atendimento
+                    Console.WriteLine($"[{DateTime.Now}] O chat {chat.id} já está em atendimento");
                 }
                 // Reordena a lista de agentes com base no número de chats em andamento
                 _agents = SortAgentsByInChats(_agents);
@@ -73,13 +56,14 @@ namespace distribuicao_automatica.Utils {
         public static void ShowInfoChatAndAgents(List<Chat> _chats, List<Agent> _agents) {
             Console.WriteLine("------------------------------------");
             foreach (var chat in _chats) {
-                Console.WriteLine($"[{DateTime.Now}] Chat ID: {chat.id}, Date: {chat.createdAt}, Department: {chat.departmentId}, Agent: {chat.agentId}");
+                Console.WriteLine($"[{DateTime.Now}] Chat ID: {chat.id} - Date: {chat.createdAt} - Department: {chat.departmentId} - Agent: {chat.agentId}");
             }
             Console.WriteLine("------------------------------------");
             foreach (var agent in _agents) {
-                Console.WriteLine($"[{DateTime.Now}] Agent ID: {agent.id}, Name: {agent.name}, Department: {agent.department}, Status: {agent.statusType}, MaxChats: {agent.maxChats}, " +
+                Console.WriteLine($"[{DateTime.Now}] Agent ID: {agent.id} - Name: {agent.name} - Department: {agent.department} - Status: {agent.statusType} - MaxChats: {agent.maxChats} - " +
                     $"InChats: {agent.inChats} AvailableChats: {agent.availableChats}");
             }
+            Console.WriteLine("------------------------------------");
         }
 
         //exibir as informações dos maxChats e inChats
@@ -107,6 +91,13 @@ namespace distribuicao_automatica.Utils {
             agents.Sort((x, y) => x.inChats.CompareTo(y.inChats));
             return agents;
         }
+
+        //ordena os agentes pela countOrder, para ajustar a fila 
+        public static List<Agent> SortAgentsByInCountOrder(List<Agent> agents) {
+            agents.Sort((x, y) => x.countOrder.CompareTo(y.countOrder));
+            return agents;
+        }
+
         //atuliza o valor do inChats quando um chat é atribuido
         public static void AssignAgentToChat(Agent agent) {
             agent.SetInChats(agent.inChats + 1);

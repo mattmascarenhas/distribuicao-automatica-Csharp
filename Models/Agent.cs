@@ -13,6 +13,7 @@ namespace distribuicao_automatica.Models {
 
         public Agent() {
             department = GetRandomDepartment();
+            countOrder = 0;
         }
 
         [JsonProperty("id")]
@@ -37,6 +38,10 @@ namespace distribuicao_automatica.Models {
         public int availableChats { get; set; }
 
         public EDepartmentType department {get; private set;}
+
+        //para distribuir a de acordo com o que foi solicitado
+        public int countOrder { get; set; }
+
 
         public void SetMaxChats(int _maxChats) {
             maxChats = _maxChats;

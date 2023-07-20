@@ -21,7 +21,8 @@ namespace distribuicao_automatica
         private static AgentMaxChatsResponse _agentsApiResponse;
         //buscar os chats na API
         public static async Task<List<Chat>> DeserializeChats() {
-            if (_chats == null) {
+            _chats = null;
+            if (_chats == null || !_chats.Any()) {
                 using (HttpClient httpClient = new HttpClient()) {
                     // Adicionar o token ao cabeçalho Authorization
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Database.token);
@@ -40,7 +41,8 @@ namespace distribuicao_automatica
 
         //buscar os agentes na API
         public static async Task<List<Agent>> DeserializeAgentList() {
-            if (_agents == null) {
+            _agents = null;
+            if (_agents == null ||!_agents.Any()) {
                 using (HttpClient httpClient = new HttpClient()) {
                     // Adicionar o token ao cabeçalho Authorization
                     httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Database.token);
@@ -73,6 +75,9 @@ namespace distribuicao_automatica
 
         //buscar o maxChats e inChats na API
         public static async Task<AgentMaxChatsResponse> DeserializeAgentResultMaxChats(int idCompanie) {
+            _agentsApiResponse = null;
+            _inChats = null;
+            _maxChats = null;
             if (_agentsApiResponse == null) {
                 using (HttpClient httpClient = new HttpClient()) {
                     // Adicionar o token ao cabeçalho Authorization
@@ -109,6 +114,37 @@ namespace distribuicao_automatica
                     } else {
                         Console.WriteLine($"[{DateTime.Now}] Failed to update agent for chat {orderedChatAgent.chatId}. Error: {response.StatusCode}");
                     }
+                }
+            }
+        }
+
+        public static async Task DeserializeDepartment(int idCompanie, int department) {
+            using (HttpClient httpClient = new HttpClient()) {
+                // Adicionar o token ao cabeçalho Authorization
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Database.token);
+
+                // Defina o conteúdo do corpo da requisição
+                string requestBody = $"{{ \"departments\": [ {department} ] }}";
+
+                // Crie um objeto HttpRequestMessage para configurar a requisição
+                var request = new HttpRequestMessage {
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri($"{Database.apiUrl}/companies/{idCompanie}/dashboard/agents/info"),
+                    Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
+                };
+
+                // Faça a requisição GET com o corpo
+                HttpResponseMessage response = await httpClient.SendAsync(request).ConfigureAwait(false);
+
+                // Verifique se a resposta foi bem-sucedida
+                if (response.IsSuccessStatusCode) {
+                    // Leia o conteúdo da resposta como uma string
+                    string responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                    // Faça o processamento dos dados recebidos
+                    Console.WriteLine(responseBody);
+                } else {
+                    Console.WriteLine("Erro na requisição: " + response.StatusCode);
                 }
             }
         }
