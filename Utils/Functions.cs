@@ -103,10 +103,21 @@ namespace distribuicao_automatica.Utils {
             agent.SetInChats(agent.inChats + 1);
         }
 
+        //exibe os chatId e o AgentId
         public static void ShowMaxChatsAndInChats(List<OrderedChatAgent> _idChats) {
             foreach (OrderedChatAgent _idChat in _idChats) {
                Console.WriteLine($"[{DateTime.Now}] ChatID: {_idChat.chatId} - AgentID: {_idChat.agentId}");
             }
+        }
+
+
+        //exibir as informações dos departmentos
+        public static void ShowInfoDepartments(List<Department> _departments) {
+            Console.WriteLine("------------------------------------");
+            foreach (var department in _departments) {
+                Console.WriteLine($"[{DateTime.Now}] Department ID: {department.id} - Name: {department.name}");
+            }
+            Console.WriteLine("------------------------------------");
         }
 
     }

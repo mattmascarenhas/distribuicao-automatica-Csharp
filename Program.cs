@@ -10,6 +10,7 @@ class Program {
     private static List<Agent> _agents;
     private static AgentMaxChatsResponse _agentsMaxChats;
     private static List<OrderedChatAgent> _idChats = new List<OrderedChatAgent>();
+    private static List<Department> _departments = new List<Department>();
     static async Task Main(string[] args) {
         // Configurar um timer para executar as funções a cada minuto
         Timer timer = new Timer(async _ => await ExecuteFunctions(), null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
@@ -26,7 +27,7 @@ class Program {
         _agentsMaxChats = await JsonDeserialize.DeserializeAgentResultMaxChats(344616);
         //buscando os agentes na API
         _agents = await JsonDeserialize.DeserializeAgentList();
-        if (_chats != null && _agents != null && _idChats != null) {
+        if (_chats != null && _agents != null) {
             //remove os chats que ja estão em atendimento
             Functions.RemoveChatsWithAgentId(_chats);
             //ordenando os chats por ordem de criação
@@ -44,6 +45,11 @@ class Program {
 
             Console.WriteLine("------------------------------------");
             //Retorna os dados já distribuido pra API
+
+
+            //teste de dados para buscar o departamento
+            //_departments = await JsonDeserialize.DeserializeDepartments(_departments);
+            //Functions.ShowInfoDepartments(_departments);
             //await JsonDeserialize.DeserializeDepartment(344616, 56790);
 
             await JsonDeserialize.UpdateChatAgents(_idChats);

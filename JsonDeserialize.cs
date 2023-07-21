@@ -117,7 +117,7 @@ namespace distribuicao_automatica
                 }
             }
         }
-
+        //implementacão da busca do departamento
         public static async Task DeserializeDepartment(int idCompanie, int department) {
             using (HttpClient httpClient = new HttpClient()) {
                 // Adicionar o token ao cabeçalho Authorization
@@ -148,5 +148,26 @@ namespace distribuicao_automatica
                 }
             }
         }
+
+        public static async Task<List<Department>> DeserializeDepartments(List<Department> _departments) {
+            _departments = null;
+            if (_departments == null || !_departments.Any()) {
+                using (HttpClient httpClient = new HttpClient()) {
+                    // Adicionar o token ao cabeçalho Authorization
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Database.token);
+                    HttpResponseMessage response = await httpClient.GetAsync($"{Database.apiUrl}/departments");
+
+                    if (response.IsSuccessStatusCode) {
+                        string responseBody = await response.Content.ReadAsStringAsync();
+                        _departments = JsonConvert.DeserializeObject<List<Department>>(responseBody);
+                    } else {
+                        Console.WriteLine($"[{DateTime.Now}] Erro: {response.StatusCode}");
+                    }
+                }
+            }
+            return _departments;
+        }
+
+
     }
 }
