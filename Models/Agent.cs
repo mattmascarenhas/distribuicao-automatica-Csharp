@@ -8,11 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace distribuicao_automatica.Models {
-    public class Agent {
-        private static Random random = new Random();
-
+    internal class Agent {
         public Agent() {
-            department = GetRandomDepartment();
             countOrder = 0;
         }
 
@@ -37,7 +34,7 @@ namespace distribuicao_automatica.Models {
 
         public int availableChats { get; set; }
 
-        public EDepartmentType department {get; private set;}
+        public List<Department> department {get; set;}
 
         //para distribuir a de acordo com o que foi solicitado
         public int countOrder { get; set; }
@@ -54,16 +51,5 @@ namespace distribuicao_automatica.Models {
         public void SetAvailableChats(int _inChats, int _maxChats) {
             availableChats = _maxChats - _inChats;
         }
-        private EDepartmentType GetRandomDepartment() {
-            // Obtém um valor aleatório do enum EDepartmentType
-            Array values = Enum.GetValues(typeof(EDepartmentType));
-            EDepartmentType randomDepartment;
-            do {
-                randomDepartment = (EDepartmentType) values.GetValue(random.Next(values.Length));
-            } while (randomDepartment == EDepartmentType.Sem_Departamento);
-
-            return randomDepartment;
-        }
-
     }
 }

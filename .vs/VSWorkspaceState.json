@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Enums",
+    "\\Models",
+    "\\Models\\Agents",
+    "\\Models\\Agents\\DepartmentAgents",
+    "\\Utils"
+  ],
+  "SelectedNode": "\\Models\\Agent.cs",
+  "PreviewInSolutionExplorer": false
+}

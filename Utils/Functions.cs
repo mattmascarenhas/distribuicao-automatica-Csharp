@@ -18,7 +18,7 @@ namespace distribuicao_automatica.Utils {
                     // Filtra os agentes que estão disponíveis e possuem mais de zero AvailableChats
                     var compatibleAgents = _agents.Where(agent =>
                         agent.statusType == EStatusType.Disponível &&
-                        agent.availableChats > 0 && chat.departmentId == agent.department
+                        agent.availableChats > 0 && agent.department.Any(department => department.id == chat.departmentId)
                     ).ToList();
 
                     if (compatibleAgents.Count > 0) {
@@ -40,7 +40,7 @@ namespace distribuicao_automatica.Utils {
                         int agentIndex = _agents.FindIndex(agent => agent.id == selectedAgent.id);
                         _agents[agentIndex] = selectedAgent;
                     } else {
-                        // Manter o chat na fila quando não houver agente do departamento disponivel
+                        // Manter o chat na fila quando não houver agente do departamento disponível
                         Console.WriteLine($"[{DateTime.Now}] Chat ID: {chat.id} - Nenhum atendente do departamento encontrado, chat seguirá na fila");
                     }
                 } else {
@@ -60,8 +60,10 @@ namespace distribuicao_automatica.Utils {
             }
             Console.WriteLine("------------------------------------");
             foreach (var agent in _agents) {
-                Console.WriteLine($"[{DateTime.Now}] Agent ID: {agent.id} - Name: {agent.name} - Department: {agent.department} - Status: {agent.statusType} - MaxChats: {agent.maxChats} - " +
-                    $"InChats: {agent.inChats} AvailableChats: {agent.availableChats}");
+                List<string> departmentNames = agent.department.Select(d => d.name).ToList();
+
+                Console.WriteLine($"[{DateTime.Now}] Agent ID: {agent.id} | Name: {agent.name.PadRight(25)} | Department:  {string.Join(", ", departmentNames)} | Status: {agent.statusType} | MaxChats: {agent.maxChats} | " +
+                    $"InChats: {agent.inChats} | AvailableChats: {agent.availableChats}");
             }
             Console.WriteLine("------------------------------------");
         }
@@ -106,7 +108,7 @@ namespace distribuicao_automatica.Utils {
         //exibe os chatId e o AgentId
         public static void ShowMaxChatsAndInChats(List<OrderedChatAgent> _idChats) {
             foreach (OrderedChatAgent _idChat in _idChats) {
-               Console.WriteLine($"[{DateTime.Now}] ChatID: {_idChat.chatId} - AgentID: {_idChat.agentId}");
+                Console.WriteLine($"[{DateTime.Now}] ChatID: {_idChat.chatId} - AgentID: {_idChat.agentId}");
             }
         }
 
@@ -120,6 +122,21 @@ namespace distribuicao_automatica.Utils {
             Console.WriteLine("------------------------------------");
         }
 
-    }
 
+        //public static void InitializeEDepartmentType(List<Department> departmentDataList) {
+        //    foreach (var departmentData in departmentDataList) {
+        //        // Verifica se o valor do id já existe no enumerador EDepartmentType
+        //        if (Enum.IsDefined(typeof(EDepartmentType), departmentData.id)) {
+        //            // Faz o cast do int para EDepartmentType
+        //            EDepartmentType departmentEnumValue = (EDepartmentType) departmentData.id;
+
+        //            // Se o valor do enum for válido, você pode usar o nome recebido da API
+        //            // para definir o nome do departamento, se necessário.
+        //            // Por exemplo: departmentEnumValue.SetName(departmentData.name);
+
+        //            // Agora você pode usar departmentEnumValue conforme necessário.
+        //        }
+        //    }
+        //}
+    }
 }

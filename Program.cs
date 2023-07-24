@@ -21,12 +21,15 @@ class Program {
     }
 
     static async Task ExecuteFunctions() {
+        //buscar departamentos
+        _departments = await JsonDeserialize.DeserializeDepartments(_departments);
         //buscando os chats na API
         _chats = await JsonDeserialize.DeserializeChats();
         //buscando o maxChats e inChats na API
         _agentsMaxChats = await JsonDeserialize.DeserializeAgentResultMaxChats(344616);
         //buscando os agentes na API
         _agents = await JsonDeserialize.DeserializeAgentList();
+
         if (_chats != null && _agents != null) {
             //remove os chats que ja estão em atendimento
             Functions.RemoveChatsWithAgentId(_chats);
@@ -34,6 +37,8 @@ class Program {
             _chats = await Functions.orderByCreatedAt(_chats);
             //ordenando o agentes, para dar prioridade a quem tem menos chats ativos
             _agents = Functions.SortAgentsByInChats(_agents);
+            //exibe os departamentos
+            Functions.ShowInfoDepartments(_departments);
             //exibe informações sobre chats e agentes
             Functions.ShowInfoChatAndAgents(_chats, _agents);
             //direciona os chats para os atendentes
@@ -45,12 +50,6 @@ class Program {
 
             Console.WriteLine("------------------------------------");
             //Retorna os dados já distribuido pra API
-
-
-            //teste de dados para buscar o departamento
-            //_departments = await JsonDeserialize.DeserializeDepartments(_departments);
-            //Functions.ShowInfoDepartments(_departments);
-            //await JsonDeserialize.DeserializeDepartment(344616, 56790);
 
             await JsonDeserialize.UpdateChatAgents(_idChats);
             //limpar os dados para a proxima execução

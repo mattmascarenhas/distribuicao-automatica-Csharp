@@ -17,5 +17,9 @@ namespace distribuicao_automatica.Models {
 
         [JsonProperty("active")]
         public bool active { get; private set; }
+
+        public void SetId(int newId) {
+            id = newId;
+        }
     }
 }

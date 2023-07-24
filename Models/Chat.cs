@@ -16,7 +16,7 @@ namespace distribuicao_automatica.Models {
         public int id { get; private set; }
 
         [JsonProperty("departmentId")] //especialização
-        public EDepartmentType? departmentId { get ; private set; }
+        public int? departmentId { get ; private set; }
 
         [JsonProperty("agentId")] //agente responsavel
         public int? agentId { get; private set; }
