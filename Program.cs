@@ -3,24 +3,31 @@ using distribuicao_automatica.Models;
 using distribuicao_automatica.Models.Agents.MaxChatsAgent;
 using distribuicao_automatica.Models.Agents.MaxChatsAgents;
 using distribuicao_automatica.Utils;
+using Google.Cloud.Functions.Framework;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 
-class Program {
+namespace distribuicao_automatica;
+
+public class Program  {
     private static List<Chat> _chats;
     private static List<Agent> _agents;
     private static AgentMaxChatsResponse _agentsMaxChats;
     private static List<OrderedChatAgent> _idChats = new List<OrderedChatAgent>();
     private static List<Department> _departments = new List<Department>();
-    static async Task Main(string[] args) {
-        // Configurar um timer para executar as funções a cada minuto
-        Timer timer = new Timer(async _ => await ExecuteFunctions(), null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
 
-        // Aguardar indefinidamente para manter a aplicação em execução
-        await Task.Delay(Timeout.Infinite);
-
+    public static async Task Main(string[] args) {
+        await ExecuteFunctions();
+        CreateHostBuilder(args).Build().RunAsync();
     }
 
-    static async Task ExecuteFunctions() {
+    public static async Task ExecuteFunctions() {
         //buscar departamentos
         _departments = await JsonDeserialize.DeserializeDepartments(_departments);
         //buscando os chats na API
@@ -60,5 +67,47 @@ class Program {
         } else {
             Console.WriteLine($"{DateTime.Now} As listas de chats, agentes ou idChats não foram inicializadas corretamente.");
         }
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+       Host.CreateDefaultBuilder(args)
+           .ConfigureWebHostDefaults(webBuilder => {
+               webBuilder.UseStartup<Startup>();
+               webBuilder.UseUrls("http://0.0.0.0:8080");  // Define o host e a porta aqui
+           });
+
+}
+
+public class Startup {
+    public Startup(IConfiguration configuration) {
+        Configuration = configuration;
+    }
+
+    public IConfiguration Configuration {
+        get;
+    }
+
+    public void ConfigureServices(IServiceCollection services) {
+        services.AddControllers();
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
+        if (env.IsDevelopment()) {
+            app.UseDeveloperExceptionPage();
+        } else {
+            app.UseExceptionHandler("/Home/Error");
+            app.UseHsts();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseStaticFiles();
+
+        app.UseRouting();
+
+        app.UseEndpoints(endpoints => {
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+        });
     }
 }

@@ -15,3 +15,8 @@ D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\distribuicao-automatica.genru
 D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\ref\distribuicao-automatica.dll
 D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\Newtonsoft.Json.dll
 D:\CSharp\distribuicao-automatica\obj\Debug\net7.0\distribuicao-automatica.csproj.CopyComplete
+D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\CloudNative.CloudEvents.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\CloudNative.CloudEvents.AspNetCore.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\CloudNative.CloudEvents.SystemTextJson.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\Google.Cloud.Functions.Framework.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net7.0\Google.Cloud.Functions.Hosting.dll

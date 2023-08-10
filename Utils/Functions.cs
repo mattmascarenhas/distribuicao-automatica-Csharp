@@ -123,6 +123,8 @@ namespace distribuicao_automatica.Utils {
         }
 
 
+
+
         //public static void InitializeEDepartmentType(List<Department> departmentDataList) {
         //    foreach (var departmentData in departmentDataList) {
         //        // Verifica se o valor do id já existe no enumerador EDepartmentType

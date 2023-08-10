@@ -1,0 +1,11 @@
+D:\CSharp\distribuicao-automatica\bin\Debug\net6.0\publish\distribuicao-automatica.exe
+D:\CSharp\distribuicao-automatica\bin\Debug\net6.0\publish\distribuicao-automatica.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net6.0\publish\distribuicao-automatica.deps.json
+D:\CSharp\distribuicao-automatica\bin\Debug\net6.0\publish\distribuicao-automatica.runtimeconfig.json
+D:\CSharp\distribuicao-automatica\bin\Debug\net6.0\publish\distribuicao-automatica.pdb
+D:\CSharp\distribuicao-automatica\bin\Debug\net6.0\publish\CloudNative.CloudEvents.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net6.0\publish\CloudNative.CloudEvents.AspNetCore.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net6.0\publish\CloudNative.CloudEvents.SystemTextJson.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net6.0\publish\Google.Cloud.Functions.Framework.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net6.0\publish\Google.Cloud.Functions.Hosting.dll
+D:\CSharp\distribuicao-automatica\bin\Debug\net6.0\publish\Newtonsoft.Json.dll

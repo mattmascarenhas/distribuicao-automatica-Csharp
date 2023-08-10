@@ -1,0 +1,15 @@
+D:\CSharp\distribuicao-automatica\cloud-functions\distribuicao-automatica.exe
+D:\CSharp\distribuicao-automatica\cloud-functions\distribuicao-automatica.dll
+D:\CSharp\distribuicao-automatica\cloud-functions\distribuicao-automatica.deps.json
+D:\CSharp\distribuicao-automatica\cloud-functions\distribuicao-automatica.runtimeconfig.json
+D:\CSharp\distribuicao-automatica\cloud-functions\distribuicao-automatica.pdb
+D:\CSharp\distribuicao-automatica\cloud-functions\CloudNative.CloudEvents.dll
+D:\CSharp\distribuicao-automatica\cloud-functions\CloudNative.CloudEvents.AspNetCore.dll
+D:\CSharp\distribuicao-automatica\cloud-functions\Google.Cloud.Functions.Framework.dll
+D:\CSharp\distribuicao-automatica\cloud-functions\Microsoft.Extensions.DependencyInjection.dll
+D:\CSharp\distribuicao-automatica\cloud-functions\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\CSharp\distribuicao-automatica\cloud-functions\Microsoft.Extensions.Logging.dll
+D:\CSharp\distribuicao-automatica\cloud-functions\Microsoft.Extensions.Logging.Abstractions.dll
+D:\CSharp\distribuicao-automatica\cloud-functions\Microsoft.Extensions.Options.dll
+D:\CSharp\distribuicao-automatica\cloud-functions\Microsoft.Extensions.Primitives.dll
+D:\CSharp\distribuicao-automatica\cloud-functions\Newtonsoft.Json.dll
