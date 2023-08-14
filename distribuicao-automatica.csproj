@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Cloud.BigQuery.V2" Version="3.4.0" />
     <PackageReference Include="Google.Cloud.Functions.Framework" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />

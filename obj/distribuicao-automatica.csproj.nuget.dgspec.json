@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Google.Cloud.BigQuery.V2": {
+              "target": "Package",
+              "version": "[3.4.0, )"
+            },
             "Google.Cloud.Functions.Framework": {
               "target": "Package",
               "version": "[2.1.0, )"

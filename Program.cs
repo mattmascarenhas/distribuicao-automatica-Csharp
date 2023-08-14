@@ -64,6 +64,11 @@ public class Program  {
             _chats.Clear();
             _agents.Clear();
             _agentsMaxChats = null;
+            //adiciona na contagem de vezes que a integração foi utilizada
+            Notification.InsertDataBigQuery();
+
+            //verifica se o cliente atingiu um dos limites estabelecidos
+            Notification.VerificationToSendEmail();
         } else {
             Console.WriteLine($"{DateTime.Now} As listas de chats, agentes ou idChats não foram inicializadas corretamente.");
         }
